@@ -1,34 +1,42 @@
 import { loginApi } from "@/services/auth.service";
+import useStoreAuth from "@/store/useStoreAuth";
+import { router } from "expo-router";
 import { useState } from "react";
 import Toast from "react-native-toast-message";
 
 const useAuth = () => {
   const [email, setEmail] = useState<string>("");
   const [code, setCode] = useState<string>("");
-
+  const { setToken, clearToken } = useStoreAuth();
   const login = async () => {
-    // if (!email || !code) {
-    //   Toast.show({
-    //     type: "error",
-    //     text1: "Error",
-    //     text2: "Todos los campos son obligatorios",
-    //     swipeable: true,
-    //   });
-    //   return;
-    // }
-    const response = await loginApi({ email, code });
-    console.log(response);
-    if (response) {
+    if (!email || !code) {
       Toast.show({
-        type: "success",
-        text1: "Login exitoso",
-        text2: "Bienvenido",
+        type: "info",
+        text1: "Información",
+        text2: "Todos los campos son obligatorios",
+        swipeable: true,
+      });
+      return;
+    }
+    const response = await loginApi({ email, code });
+    if (response && response.status) {
+      //aqui debemos guardar el token
+      setToken(response.token);
+      router.replace("/(tabs)");
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: response.msg,
         swipeable: true,
       });
     }
   };
 
-  const logout = () => {};
+  const logout = () => {
+    clearToken();
+    router.replace("/(auth)");
+  };
 
   return {
     login,

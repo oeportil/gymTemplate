@@ -36,7 +36,7 @@ export const postBase = async ({ data, errorfun }: apiTpost, endpoint: string) =
         const response = await instance.post(`${endpoint}`, data);
         return response.data;
     } catch (error) {
-        console.log("ERROR COMPLETO:", error);
+        console.log({ error })
         if (axios.isAxiosError(error)) {
             errorfun({
                 type: "error",
@@ -95,6 +95,7 @@ export const deleteBase = async ({ errorfun, id }: apiTdelete, endpoint: string)
         const response = await instance.delete(`${endpoint}/${id}`);
         return response.data;
     } catch (error) {
+
         if (axios.isAxiosError(error)) {
             errorfun({
                 type: "error",
