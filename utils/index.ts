@@ -8,7 +8,7 @@ export const formatDate = (date: string) => {
 
 export const formatTime = (date: string) => {
     const dateObj = new Date(date);
-    const hours = dateObj.getUTCHours();
+    const hours = dateObj.getHours();
     const minutes = dateObj.getMinutes();
     return `${hours}:${minutes}`;
 };

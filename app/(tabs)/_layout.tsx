@@ -17,6 +17,11 @@ const _layout = () => {
       label: "PyS",
     },
     {
+      name: "products",
+      iconName: "bag",
+      label: "Productos",
+    },
+    {
       name: "profile",
       iconName: "person",
       label: "Profile",
