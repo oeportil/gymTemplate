@@ -1,4 +1,5 @@
 import useAssistance from "@/hooks/useAssitance";
+import useCamera from "@/hooks/useCamera";
 import useUserStore from "@/store/useUserStore";
 import { formatDate, formatTime } from "@/utils";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -8,6 +9,7 @@ import {
   Pressable,
   ScrollView,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -16,6 +18,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const index = () => {
   const { user } = useUserStore();
   const { assistances, isLoading, getAssitances } = useAssistance();
+  const { openCamera } = useCamera();
   return (
     <SafeAreaView>
       <View className="flex-row justify-between items-center mx-6 mt-7 mb-3">
@@ -29,6 +32,19 @@ const index = () => {
         </Text>
         <Text className="text-gray-600">Mi codigo de acceso</Text>
       </View>
+
+      <TouchableOpacity
+        className="bg-white border border-gray-300 rounded-xl mt-2 p-4 shadow-xl flex flex-row items-center w-8/9
+       justify-center gap-2 mx-auto"
+        onPress={openCamera}
+      >
+        <Ionicons
+          name="qr-code-outline"
+          size={24}
+          className="text-center text-gray-500"
+        />
+        <Text className="text-gray-500 font-bold">Marcar con QR</Text>
+      </TouchableOpacity>
 
       <View className="mx-6 mt-10 flex flex-row items-center justify-between">
         <View className="flex flex-row items-center gap-2">

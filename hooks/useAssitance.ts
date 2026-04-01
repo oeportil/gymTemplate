@@ -1,9 +1,11 @@
 import { getApiAssistance } from "@/services/assitance.service";
 import { useEffect, useState, useTransition } from "react";
+import useSignalStore from "../store/useSignalStore";
 
 const useAssistance = () => {
   const [isLoading, startTransition] = useTransition();
   const [assistances, setAssistances] = useState<any[]>([]);
+  const { signal } = useSignalStore();
 
   //obtener las asistencias
   const getAssitances = async () => {
@@ -17,7 +19,7 @@ const useAssistance = () => {
 
   useEffect(() => {
     getAssitances();
-  }, []);
+  }, [signal]);
 
   return {
     isLoading,
