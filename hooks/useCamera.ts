@@ -28,10 +28,15 @@ const useCamera = () => {
         }
         const response = await postApiAssistance(data);
         console.log(response)
-        if (response && response.status) {
-            router.back();
-            Alert.alert("Exito", response?.data?.msg || "Asistencia guardada correctamente");
-            setSignal(!signal);
+        if (response) {
+            if (response.status) {
+                router.back();
+                Alert.alert("Exito", response?.data?.msg || "Asistencia guardada correctamente");
+                setSignal(!signal);
+            } else {
+                Alert.alert("Error", response?.msg);
+                router.back();
+            }
         } else {
             Alert.alert("Error", response?.data?.msg || "Error al guardar asistencia intente mas tarde o vuelva a iniciar sesión");
             router.back();
