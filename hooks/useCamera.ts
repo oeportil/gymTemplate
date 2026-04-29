@@ -30,10 +30,10 @@ const useCamera = () => {
         console.log(response)
         if (response && response.status) {
             router.back();
-            Alert.alert("Exito", response?.msg || "Asistencia guardada correctamente");
+            Alert.alert("Exito", response?.data?.msg || "Asistencia guardada correctamente");
             setSignal(!signal);
         } else {
-            Alert.alert("Error", response?.msg || "Error al guardar asistencia intente mas tarde");
+            Alert.alert("Error", response?.data?.msg || "Error al guardar asistencia intente mas tarde o vuelva a iniciar sesión");
             router.back();
         }
     }
